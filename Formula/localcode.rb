@@ -27,7 +27,13 @@ class Localcode < Formula
   end
 
   def install
-    bin.install "localcode"
+    platform = if OS.mac?
+      "darwin"
+    else
+      "linux"
+    end
+    arch = Hardware::CPU.arm? ? "arm64" : "x64"
+    bin.install "localcode-#{platform}-#{arch}" => "localcode"
   end
 
   test do
